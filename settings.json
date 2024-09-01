@@ -1,0 +1,720 @@
+[
+    {
+        "id": "asst_S13eXVS43EQX4bGB4KFMfpIe",
+        "created_at": 1725089564,
+        "description": "The EbookCEO agent oversees the entire ebook automation process and coordinates between agents within the EbookAutomationAgency. It ensures that all tasks are aligned with the agency's goals and are executed efficiently.",
+        "instructions": "# EbookAutomationAgency Manifesto\n\n## Mission\nThe mission of the EbookAutomationAgency is to automate the process of generating, delivering, and marketing ebooks. This includes building a landing page, integrating payment systems, delivering ebooks, and setting up advertising campaigns.\n\n## Goals\n1. **Build a Landing Page**: Utilize Next.js and Material-UI to create an engaging landing page for the ebook.\n2. **Integrate Payment Systems**: Use Stripe API for secure and efficient payment processing and ebook delivery.\n3. **Deliver Ebooks**: Ensure seamless delivery of ebooks to customers post-purchase.\n4. **Set Up Advertising**: Implement Google Ads to effectively market the ebook.\n5. **Generate Ebook Content and Cover**: Use DALL-E 3 for generating the ebook cover and create engaging ebook content.\n\n## Working Environment\nThe agency operates in a highly automated environment, leveraging modern web technologies and AI tools to streamline the ebook creation and marketing process. Each agent has a specific role and set of tools to ensure efficient collaboration and task completion.\n\n# EbookCEO Agent Instructions\n\nYou are the central coordinating agent for the EbookAutomationAgency. Your role is to oversee the entire process of ebook automation and ensure that all agents are working collaboratively to achieve the agency's goals.\n\n### Primary Instructions:\n1. Initiate communication with all other agents in the agency to understand their current status and tasks.\n2. Ensure that each agent is aligned with the agency's goals and is executing their tasks efficiently.\n3. Coordinate between agents to facilitate collaboration and resolve any inter-agent dependencies or conflicts.\n4. Monitor the progress of each task and ensure timely completion.\n5. Report the overall status and any issues to the user, providing recommendations for improvements if necessary.",
+        "metadata": {},
+        "model": "gpt-4o-2024-08-06",
+        "name": "EbookCEO",
+        "object": "assistant",
+        "tools": [
+            {
+                "function": {
+                    "name": "SendMessage",
+                    "description": "Use this tool to facilitate direct, synchronous communication between specialized agents within your agency. When you send a message using this tool, you receive a response exclusively from the designated recipient agent. To continue the dialogue, invoke this tool again with the desired recipient agent and your follow-up message. Remember, communication here is synchronous; the recipient agent won't perform any tasks post-response. You are responsible for relaying the recipient agent's responses back to the user, as the user does not have direct access to these replies. Keep engaging with the tool for continuous interaction until the task is fully resolved. Do not send more than 1 message at a time.",
+                    "parameters": {
+                        "$defs": {
+                            "recipient": {
+                                "enum": [
+                                    "Devid",
+                                    "PaymentIntegrationAgent",
+                                    "AdsSetupAgent",
+                                    "EbookGenerationAgent"
+                                ],
+                                "title": "recipient",
+                                "type": "string"
+                            }
+                        },
+                        "properties": {
+                            "my_primary_instructions": {
+                                "description": "Please repeat your primary instructions step-by-step, including both completed and the following next steps that you need to perform. For multi-step, complex tasks, first break them down into smaller steps yourself. Then, issue each step individually to the recipient agent via the message parameter. Each identified step should be sent in separate message. Keep in mind, that the recipient agent does not have access to these instructions. You must include recipient agent-specific instructions in the message or additional_instructions parameters.",
+                                "title": "My Primary Instructions",
+                                "type": "string"
+                            },
+                            "recipient": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/$defs/recipient"
+                                    }
+                                ],
+                                "description": "Devid: Devid is an AI software engineer capable of performing advanced coding tasks.\nPaymentIntegrationAgent: The PaymentIntegrationAgent is responsible for securely integrating the Stripe API to handle payment processing and ensure seamless ebook delivery within the EbookAutomationAgency.\nAdsSetupAgent: The AdsSetupAgent is responsible for implementing Google Ads using the Google Ads API to effectively market the ebook within the EbookAutomationAgency.\nEbookGenerationAgent: This agent generates engaging ebook content, designs ebook covers, and compiles them into a well-formatted PDF.\n"
+                            },
+                            "message": {
+                                "description": "Specify the task required for the recipient agent to complete. Focus on clarifying what the task entails, rather than providing exact instructions.",
+                                "title": "Message",
+                                "type": "string"
+                            },
+                            "message_files": {
+                                "anyOf": [
+                                    {
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    },
+                                    {
+                                        "type": "null"
+                                    }
+                                ],
+                                "default": null,
+                                "description": "A list of file ids to be sent as attachments to this message. Only use this if you have the file id that starts with 'file-'.",
+                                "examples": [
+                                    "file-1234",
+                                    "file-5678"
+                                ],
+                                "title": "Message Files"
+                            },
+                            "additional_instructions": {
+                                "default": null,
+                                "description": "Any additional instructions or clarifications that you would like to provide to the recipient agent.",
+                                "title": "Additional Instructions",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "message",
+                            "my_primary_instructions",
+                            "recipient"
+                        ],
+                        "type": "object"
+                    },
+                    "strict": false
+                },
+                "type": "function"
+            }
+        ],
+        "response_format": "auto",
+        "temperature": 0.3,
+        "tool_resources": {
+            "code_interpreter": null,
+            "file_search": null
+        },
+        "top_p": 1.0
+    },
+    {
+        "id": "asst_JxPdK3Fefk5SwHfL9rqSWpRX",
+        "created_at": 1725089564,
+        "description": "Devid is an AI software engineer capable of performing advanced coding tasks.",
+        "instructions": "# EbookAutomationAgency Manifesto\n\n## Mission\nThe mission of the EbookAutomationAgency is to automate the process of generating, delivering, and marketing ebooks. This includes building a landing page, integrating payment systems, delivering ebooks, and setting up advertising campaigns.\n\n## Goals\n1. **Build a Landing Page**: Utilize Next.js and Material-UI to create an engaging landing page for the ebook.\n2. **Integrate Payment Systems**: Use Stripe API for secure and efficient payment processing and ebook delivery.\n3. **Deliver Ebooks**: Ensure seamless delivery of ebooks to customers post-purchase.\n4. **Set Up Advertising**: Implement Google Ads to effectively market the ebook.\n5. **Generate Ebook Content and Cover**: Use DALL-E 3 for generating the ebook cover and create engaging ebook content.\n\n## Working Environment\nThe agency operates in a highly automated environment, leveraging modern web technologies and AI tools to streamline the ebook creation and marketing process. Each agent has a specific role and set of tools to ensure efficient collaboration and task completion.\n\n# Devid Operational Guide\n\nAs an AI software developer known as Devid, your role involves reading, writing, and modifying files to fulfill tasks derived from user requests. \n\n**Operational Environment**:\n- You have direct access to the internet, system executions, or environment variables. \n- Interaction with the local file system to read, write, and modify files is permitted.\n- Python is installed in your environment, enabling the execution of Python scripts and code snippets.\n- Node.js and npm are also installed, allowing for the execution of Node.js scripts and code snippets.\n- Installation of additional third-party libraries is within your capabilities.\n- Execution of commands in the terminal to compile and run code is possible.\n\n## Primary Instructions:\n\n1. Begin by fully understanding the task at hand. Use the `myfiles_browser` tool to access and review any files uploaded by the user. If initial access to files fails, retry the operation until successful. Continue browsing the files until you have gathered sufficient information to proceed. Skip this step if no files were provided.\n2. Verify your current directory's path and contents with `ListDir` and `CheckCurrentDir`. If necessary, navigate to the correct directory using the `DirectoryNavigator` tool or create a new directory for the task.\n3. Utilize the `FileWriter` for creating or modifying files. To read a file, employ the `FileReader` tool. Always modify local files when executing tasks and avoid sending code snippets to the user. Work on one file at a time and refrain from creating or modifying multiple files simultaneously. Complete each file with `FileWriter` before proceeding to the next, integrating these files into the dependencies of the main file.\n4. Execute your written code with the `CommandExecutor` by running the appropriate terminal commands. Iteratively debug and test to achieve the desired outcome. Seek clarification from the user only after all internal resolution efforts have been exhausted. To install additional libraries, execute the necessary terminal commands.\n5. Repeat the above steps for each task.\n\n**Important Note**: Your capabilities include accessing and interacting with local files, online resources, and the terminal. This enables you to fetch data, use online APIs, write, read, modify, execute files, scripts, and install any external libraries as part of your task execution process. You must write fully functioning, complete programs using the available tools, and never report back to the user until all issues have been resolved. Any code execution must be performed in your current directory, and you must never display any code snippets to the user.",
+        "metadata": {},
+        "model": "gpt-4o-2024-08-06",
+        "name": "Devid",
+        "object": "assistant",
+        "tools": [
+            {
+                "type": "file_search",
+                "file_search": {
+                    "max_num_results": null,
+                    "ranking_options": {
+                        "ranker": "default_2024_08_21",
+                        "score_threshold": 0.0
+                    }
+                }
+            },
+            {
+                "function": {
+                    "name": "ChangeFile",
+                    "description": "This tool changes specified lines in a file. Returns the new file contents with line numbers at the start of each line.",
+                    "parameters": {
+                        "$defs": {
+                            "LineChange": {
+                                "description": "Line changes to be made.",
+                                "properties": {
+                                    "line_number": {
+                                        "description": "Line number to change.",
+                                        "examples": [
+                                            1,
+                                            2,
+                                            3
+                                        ],
+                                        "title": "Line Number",
+                                        "type": "integer"
+                                    },
+                                    "new_line": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "null"
+                                            }
+                                        ],
+                                        "default": null,
+                                        "description": "New line to replace the old line. Not required only for delete mode.",
+                                        "examples": [
+                                            "This is a new line"
+                                        ],
+                                        "title": "New Line"
+                                    },
+                                    "mode": {
+                                        "default": "replace",
+                                        "description": "Mode to use for the line change. \"replace\" replaces the line with the new line. \"insert\" inserts the new line at the specified line number, moving the previous line down. \"delete\" deletes the specified line number.",
+                                        "enum": [
+                                            "replace",
+                                            "insert",
+                                            "delete"
+                                        ],
+                                        "title": "Mode",
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "line_number"
+                                ],
+                                "title": "LineChange",
+                                "type": "object"
+                            }
+                        },
+                        "properties": {
+                            "chain_of_thought": {
+                                "description": "Please think step-by-step about the required changes to the file in order to construct a fully functioning and correct program according to the requirements.",
+                                "title": "Chain Of Thought",
+                                "type": "string"
+                            },
+                            "file_path": {
+                                "description": "Path to the file with extension.",
+                                "examples": [
+                                    "./file.txt",
+                                    "./file.json",
+                                    "../../file.py"
+                                ],
+                                "title": "File Path",
+                                "type": "string"
+                            },
+                            "changes": {
+                                "description": "Line changes to be made to the file.",
+                                "examples": [
+                                    {
+                                        "line_number": 1,
+                                        "mode": "replace",
+                                        "new_line": "This is a new line"
+                                    }
+                                ],
+                                "items": {
+                                    "$ref": "#/$defs/LineChange"
+                                },
+                                "title": "Changes",
+                                "type": "array"
+                            }
+                        },
+                        "required": [
+                            "chain_of_thought",
+                            "changes",
+                            "file_path"
+                        ],
+                        "type": "object"
+                    },
+                    "strict": false
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "CheckCurrentDir",
+                    "description": "This tool checks the current directory path.",
+                    "parameters": {
+                        "properties": {
+                            "chain_of_thought": {
+                                "description": "Please think step-by-step about what you need to do next, after checking current directory to solve the task.",
+                                "title": "Chain Of Thought",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "chain_of_thought"
+                        ],
+                        "type": "object"
+                    },
+                    "strict": false
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "CommandExecutor",
+                    "description": "Executes a specified command in the terminal and captures the output.\n\nThis tool runs a given command in the system's default shell and returns the stdout and stderr.",
+                    "parameters": {
+                        "properties": {
+                            "command": {
+                                "description": "The command to execute in the terminal.",
+                                "title": "Command",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "command"
+                        ],
+                        "type": "object"
+                    },
+                    "strict": false
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "DirectoryNavigator",
+                    "description": "Allows you to navigate directories. Do not use this tool more than once at a time.\nYou must finish all tasks in the current directory before navigating into new directory.",
+                    "parameters": {
+                        "properties": {
+                            "path": {
+                                "description": "The path of the directory to navigate to.",
+                                "title": "Path",
+                                "type": "string"
+                            },
+                            "create": {
+                                "default": false,
+                                "description": "If True, the directory will be created if it does not exist.",
+                                "title": "Create",
+                                "type": "boolean"
+                            }
+                        },
+                        "required": [
+                            "path"
+                        ],
+                        "type": "object"
+                    },
+                    "strict": false
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "FileMover",
+                    "description": "FileMover is a tool designed to move files from a source path to a destination path. If the destination directory does not exist, it will be created.",
+                    "parameters": {
+                        "properties": {
+                            "source_path": {
+                                "description": "The full path of the file to move, including the file name and extension.",
+                                "title": "Source Path",
+                                "type": "string"
+                            },
+                            "destination_path": {
+                                "description": "The destination path where the file should be moved, including the new file name and extension if changing.",
+                                "title": "Destination Path",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "destination_path",
+                            "source_path"
+                        ],
+                        "type": "object"
+                    },
+                    "strict": false
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "FileReader",
+                    "description": "This tool reads a file and returns the contents along with line numbers on the left.",
+                    "parameters": {
+                        "properties": {
+                            "file_path": {
+                                "description": "Path to the file to read with extension.",
+                                "examples": [
+                                    "./file.txt",
+                                    "./file.json",
+                                    "../../file.py"
+                                ],
+                                "title": "File Path",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "file_path"
+                        ],
+                        "type": "object"
+                    },
+                    "strict": false
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "FileWriter",
+                    "description": "This tool allows you to write new files or modify existing files according to specified requirements.\nIn 'write' mode, it creates a new file or overwrites an existing one.\nIn 'modify' mode, it modifies an existing file according to the provided requirements.",
+                    "parameters": {
+                        "properties": {
+                            "file_path": {
+                                "description": "The path of the file to write or modify. Will create directories if they don't exist.",
+                                "title": "File Path",
+                                "type": "string"
+                            },
+                            "requirements": {
+                                "description": "The comprehensive requirements explaining how the file should be written or modified. This should be a detailed description of what the file should contain, including example inputs, desired behaviour, and ideal outputs. It must not contain any code or implementation details.",
+                                "title": "Requirements",
+                                "type": "string"
+                            },
+                            "details": {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "type": "null"
+                                    }
+                                ],
+                                "default": null,
+                                "description": "Additional details like error messages, or class, function, and variable names from other files that this file depends on.",
+                                "title": "Details"
+                            },
+                            "documentation": {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "type": "null"
+                                    }
+                                ],
+                                "default": null,
+                                "description": "Relevant documentation extracted with the myfiles_browser tool. You must pass all the relevant code from the documentation, as this tool does not have access to those files.",
+                                "title": "Documentation"
+                            },
+                            "mode": {
+                                "description": "The mode of operation for the tool. 'write' is used to create a new file or overwrite an existing one. 'modify' is used to modify an existing file.",
+                                "enum": [
+                                    "write",
+                                    "modify"
+                                ],
+                                "title": "Mode",
+                                "type": "string"
+                            },
+                            "file_dependencies": {
+                                "default": [],
+                                "description": "Paths to other files that the file being written depends on.",
+                                "examples": [
+                                    "/path/to/dependency1.py",
+                                    "/path/to/dependency2.css",
+                                    "/path/to/dependency3.js"
+                                ],
+                                "items": {
+                                    "type": "string"
+                                },
+                                "title": "File Dependencies",
+                                "type": "array"
+                            },
+                            "library_dependencies": {
+                                "default": [],
+                                "description": "Any library dependencies required for the file to be written.",
+                                "examples": [
+                                    "numpy",
+                                    "pandas"
+                                ],
+                                "items": {
+                                    "type": "string"
+                                },
+                                "title": "Library Dependencies",
+                                "type": "array"
+                            }
+                        },
+                        "required": [
+                            "file_path",
+                            "mode",
+                            "requirements"
+                        ],
+                        "type": "object"
+                    },
+                    "strict": false
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "ListDir",
+                    "description": "This tool returns the tree structure of the directory.",
+                    "parameters": {
+                        "properties": {
+                            "dir_path": {
+                                "description": "Path of the directory to read.",
+                                "examples": [
+                                    "./",
+                                    "./test",
+                                    "../../"
+                                ],
+                                "title": "Dir Path",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "dir_path"
+                        ],
+                        "type": "object"
+                    },
+                    "strict": false
+                },
+                "type": "function"
+            }
+        ],
+        "response_format": "auto",
+        "temperature": 0.0,
+        "tool_resources": {
+            "code_interpreter": null,
+            "file_search": {
+                "vector_store_ids": []
+            }
+        },
+        "top_p": 1.0
+    },
+    {
+        "id": "asst_PQWOSEwjspYsRPKJGWWD9AQq",
+        "created_at": 1725089565,
+        "description": "The PaymentIntegrationAgent is responsible for securely integrating the Stripe API to handle payment processing and ensure seamless ebook delivery within the EbookAutomationAgency.",
+        "instructions": "# EbookAutomationAgency Manifesto\n\n## Mission\nThe mission of the EbookAutomationAgency is to automate the process of generating, delivering, and marketing ebooks. This includes building a landing page, integrating payment systems, delivering ebooks, and setting up advertising campaigns.\n\n## Goals\n1. **Build a Landing Page**: Utilize Next.js and Material-UI to create an engaging landing page for the ebook.\n2. **Integrate Payment Systems**: Use Stripe API for secure and efficient payment processing and ebook delivery.\n3. **Deliver Ebooks**: Ensure seamless delivery of ebooks to customers post-purchase.\n4. **Set Up Advertising**: Implement Google Ads to effectively market the ebook.\n5. **Generate Ebook Content and Cover**: Use DALL-E 3 for generating the ebook cover and create engaging ebook content.\n\n## Working Environment\nThe agency operates in a highly automated environment, leveraging modern web technologies and AI tools to streamline the ebook creation and marketing process. Each agent has a specific role and set of tools to ensure efficient collaboration and task completion.\n\n# PaymentIntegrationAgent Instructions\n\nYou are an agent that focuses on integrating Stripe for payment processing and ensuring seamless ebook delivery. Your role is crucial for handling transactions securely and efficiently.\n\n### Primary Instructions:\n1. Set up the Stripe API integration to handle payments for the ebook.\n2. Ensure that the payment process is secure and complies with all necessary regulations.\n3. Develop a system for seamless ebook delivery to customers upon successful payment.\n4. Test the payment and delivery system thoroughly to ensure reliability and security.\n5. Collaborate with other agents to ensure the payment and delivery systems are aligned with the overall ebook automation process.",
+        "metadata": {},
+        "model": "gpt-4o-2024-08-06",
+        "name": "PaymentIntegrationAgent",
+        "object": "assistant",
+        "tools": [
+            {
+                "function": {
+                    "name": "StripePaymentProcessor",
+                    "description": "This tool integrates with the Stripe API to handle payment processing.\nIt can create payment intents, handle webhooks for payment status updates,\nand manage customer data securely. The tool ensures compliance with PCI DSS\nstandards and provides error handling for common payment issues.",
+                    "parameters": {
+                        "properties": {
+                            "amount": {
+                                "description": "The amount to be charged in the smallest currency unit (e.g., cents for USD).",
+                                "title": "Amount",
+                                "type": "integer"
+                            },
+                            "currency": {
+                                "description": "The currency in which the payment is to be made (e.g., 'usd').",
+                                "title": "Currency",
+                                "type": "string"
+                            },
+                            "customer_email": {
+                                "description": "The email address of the customer making the payment.",
+                                "title": "Customer Email",
+                                "type": "string"
+                            },
+                            "description": {
+                                "description": "A description of the payment.",
+                                "title": "Description",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "amount",
+                            "currency",
+                            "customer_email",
+                            "description"
+                        ],
+                        "type": "object"
+                    },
+                    "strict": false
+                },
+                "type": "function"
+            }
+        ],
+        "response_format": "auto",
+        "temperature": 0.3,
+        "tool_resources": {
+            "code_interpreter": null,
+            "file_search": null
+        },
+        "top_p": 1.0
+    },
+    {
+        "id": "asst_DL0mcUjinDSJLg7upmpWGYk1",
+        "created_at": 1725089565,
+        "description": "The AdsSetupAgent is responsible for implementing Google Ads using the Google Ads API to effectively market the ebook within the EbookAutomationAgency.",
+        "instructions": "# EbookAutomationAgency Manifesto\n\n## Mission\nThe mission of the EbookAutomationAgency is to automate the process of generating, delivering, and marketing ebooks. This includes building a landing page, integrating payment systems, delivering ebooks, and setting up advertising campaigns.\n\n## Goals\n1. **Build a Landing Page**: Utilize Next.js and Material-UI to create an engaging landing page for the ebook.\n2. **Integrate Payment Systems**: Use Stripe API for secure and efficient payment processing and ebook delivery.\n3. **Deliver Ebooks**: Ensure seamless delivery of ebooks to customers post-purchase.\n4. **Set Up Advertising**: Implement Google Ads to effectively market the ebook.\n5. **Generate Ebook Content and Cover**: Use DALL-E 3 for generating the ebook cover and create engaging ebook content.\n\n## Working Environment\nThe agency operates in a highly automated environment, leveraging modern web technologies and AI tools to streamline the ebook creation and marketing process. Each agent has a specific role and set of tools to ensure efficient collaboration and task completion.\n\n# AdsSetupAgent Instructions\n\nYou are an agent that focuses on setting up Google Ads to market the ebook. Your role is crucial for driving traffic and sales through effective online advertising.\n\n### Primary Instructions:\n1. Integrate with the Google Ads API to create and manage ad campaigns.\n2. Develop ad strategies that align with the ebook's target audience and marketing goals.\n3. Monitor ad performance and optimize campaigns for better results.\n4. Collaborate with other agents to ensure the advertising strategy is aligned with the overall ebook marketing plan.\n5. Report on ad performance and provide insights for future campaigns.",
+        "metadata": {},
+        "model": "gpt-4o-2024-08-06",
+        "name": "AdsSetupAgent",
+        "object": "assistant",
+        "tools": [
+            {
+                "function": {
+                    "name": "GoogleAdsCampaignManager",
+                    "description": "This tool integrates with the Google Ads API to set up and manage ad campaigns.\nIt can create, update, and delete campaigns, ad groups, and ads. The tool also\nhandles budget management, keyword targeting, and performance tracking. It ensures\ncompliance with Google Ads policies and provides error handling for common issues.",
+                    "parameters": {
+                        "properties": {
+                            "action": {
+                                "description": "The action to perform: 'create', 'update', or 'delete'.",
+                                "title": "Action",
+                                "type": "string"
+                            },
+                            "entity": {
+                                "description": "The entity to manage: 'campaign', 'ad_group', or 'ad'.",
+                                "title": "Entity",
+                                "type": "string"
+                            },
+                            "entity_id": {
+                                "default": null,
+                                "description": "The ID of the entity to update or delete. Not required for creation.",
+                                "title": "Entity Id",
+                                "type": "string"
+                            },
+                            "name": {
+                                "default": null,
+                                "description": "The name of the campaign, ad group, or ad. Required for creation.",
+                                "title": "Name",
+                                "type": "string"
+                            },
+                            "budget": {
+                                "default": null,
+                                "description": "The budget for the campaign in micros. Required for campaign creation.",
+                                "title": "Budget",
+                                "type": "integer"
+                            },
+                            "keywords": {
+                                "default": null,
+                                "description": "A list of keywords for the ad group. Required for ad group creation.",
+                                "items": {},
+                                "title": "Keywords",
+                                "type": "array"
+                            },
+                            "ad_text": {
+                                "default": null,
+                                "description": "The text for the ad. Required for ad creation.",
+                                "title": "Ad Text",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "action",
+                            "entity"
+                        ],
+                        "type": "object"
+                    },
+                    "strict": false
+                },
+                "type": "function"
+            }
+        ],
+        "response_format": "auto",
+        "temperature": 0.3,
+        "tool_resources": {
+            "code_interpreter": null,
+            "file_search": null
+        },
+        "top_p": 1.0
+    },
+    {
+        "id": "asst_dvAD5Fnpt9c6ET4kYT8DCpzn",
+        "created_at": 1725089565,
+        "description": "This agent generates engaging ebook content, designs ebook covers, and compiles them into a well-formatted PDF.",
+        "instructions": "# EbookAutomationAgency Manifesto\n\n## Mission\nThe mission of the EbookAutomationAgency is to automate the process of generating, delivering, and marketing ebooks. This includes building a landing page, integrating payment systems, delivering ebooks, and setting up advertising campaigns.\n\n## Goals\n1. **Build a Landing Page**: Utilize Next.js and Material-UI to create an engaging landing page for the ebook.\n2. **Integrate Payment Systems**: Use Stripe API for secure and efficient payment processing and ebook delivery.\n3. **Deliver Ebooks**: Ensure seamless delivery of ebooks to customers post-purchase.\n4. **Set Up Advertising**: Implement Google Ads to effectively market the ebook.\n5. **Generate Ebook Content and Cover**: Use DALL-E 3 for generating the ebook cover and create engaging ebook content.\n\n## Working Environment\nThe agency operates in a highly automated environment, leveraging modern web technologies and AI tools to streamline the ebook creation and marketing process. Each agent has a specific role and set of tools to ensure efficient collaboration and task completion.\n\n# EbookGenerationAgent Instructions\n\nYou are an agent that focuses on generating ebook content and designing the ebook cover. Your role is crucial for ensuring the ebook is both visually appealing and engaging for readers.\n\n### Primary Instructions:\n1. Use DALL-E 3 to generate a visually appealing cover for the ebook that aligns with the ebook's theme and target audience.\n2. Create engaging and well-structured ebook content, ensuring it is informative and aligns with the ebook's purpose.\n3. Compile the generated content and cover image into a well-formatted PDF ebook using the provided tools.\n4. Collaborate with other agents to ensure the content and cover are aligned with the overall ebook marketing and delivery strategy.\n5. Review and refine the content and cover based on feedback from other agents or the user.\n6. Ensure that the final ebook is ready for publication and delivery.\n",
+        "metadata": {},
+        "model": "gpt-4o-2024-08-06",
+        "name": "EbookGenerationAgent",
+        "object": "assistant",
+        "tools": [
+            {
+                "function": {
+                    "name": "EbookContentGenerator",
+                    "description": "This tool generates engaging ebook content based on a given topic or outline.\nIt structures the content into chapters, sections, and paragraphs, ensuring coherence\nand readability. The tool also allows for customization of writing style and tone.",
+                    "parameters": {
+                        "properties": {
+                            "topic": {
+                                "description": "The main topic or outline for the ebook content.",
+                                "title": "Topic",
+                                "type": "string"
+                            },
+                            "chapters": {
+                                "description": "The number of chapters to generate.",
+                                "title": "Chapters",
+                                "type": "integer"
+                            },
+                            "sections_per_chapter": {
+                                "description": "The number of sections per chapter.",
+                                "title": "Sections Per Chapter",
+                                "type": "integer"
+                            },
+                            "paragraphs_per_section": {
+                                "description": "The number of paragraphs per section.",
+                                "title": "Paragraphs Per Section",
+                                "type": "integer"
+                            },
+                            "writing_style": {
+                                "description": "The desired writing style (e.g., 'formal', 'informal', 'technical').",
+                                "title": "Writing Style",
+                                "type": "string"
+                            },
+                            "tone": {
+                                "description": "The desired tone (e.g., 'serious', 'humorous', 'inspirational').",
+                                "title": "Tone",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "chapters",
+                            "paragraphs_per_section",
+                            "sections_per_chapter",
+                            "tone",
+                            "topic",
+                            "writing_style"
+                        ],
+                        "type": "object"
+                    },
+                    "strict": false
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "EbookCoverGenerator",
+                    "description": "This tool generates an ebook cover image using a prompt.\nIt assumes a separate tool is responsible for fetching and saving the image.",
+                    "parameters": {
+                        "properties": {
+                            "prompt": {
+                                "description": "A text description of the desired ebook cover image.",
+                                "title": "Prompt",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "prompt"
+                        ],
+                        "type": "object"
+                    },
+                    "strict": false
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "EbookPDFGenerator",
+                    "description": "This tool generates a well-formatted PDF ebook using the provided content\nand cover image. It is assumed that content and cover are generated by other tools.",
+                    "parameters": {
+                        "properties": {
+                            "content": {
+                                "description": "The content of the ebook, including chapters, sections, and paragraphs.",
+                                "title": "Content",
+                                "type": "string"
+                            },
+                            "cover_image_path": {
+                                "description": "Path to the cover image file to be included in the ebook.",
+                                "title": "Cover Image Path",
+                                "type": "string"
+                            },
+                            "output_filename": {
+                                "default": "ebook.pdf",
+                                "description": "The name of the output PDF file.",
+                                "title": "Output Filename",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "content",
+                            "cover_image_path"
+                        ],
+                        "type": "object"
+                    },
+                    "strict": false
+                },
+                "type": "function"
+            }
+        ],
+        "response_format": "auto",
+        "temperature": 0.3,
+        "tool_resources": {
+            "code_interpreter": null,
+            "file_search": null
+        },
+        "top_p": 1.0
+    }
+]

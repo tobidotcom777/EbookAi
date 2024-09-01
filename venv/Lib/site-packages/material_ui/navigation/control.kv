@@ -1,0 +1,88 @@
+<NavigationController>:
+    orientation:'vertical'
+    actionprev:actionprev
+    actiontext:actiontext
+    content:content
+    floating_panel:floating_panel
+
+    canvas.before:
+        Color:
+            rgba: self.background_color
+        Rectangle:
+            pos: self.pos
+            size: self.size    
+
+    BoxLayout:
+        id: content
+        orientation: 'horizontal'
+        size_hint: (1,None)
+        height: root.nav_height
+
+        canvas.before:
+            Color:
+                rgba: root.nav_color
+            Rectangle:
+                pos: self.pos
+                size: self.size    
+            Color:
+                rgba: 1, 1, 1, 1
+            Rectangle:
+                pos: root.center[0]-dp(64), root.center[1]-dp(64)
+                size: dp(128), dp(128)
+                source: root.splash_image
+
+        Button:
+            id: actionprev
+            font_size: 3 * root.nav_height / 5
+            halign: 'left'
+            background_color: [0,0,0,0]
+            background_color_down: [0,0,0,0]
+            background_color_disabled: [0,0,0,0]
+            shadow_alpha: 0
+            color: root.text_color
+            corner_radius: 0
+            on_press: root.pop()
+            size_hint: None, None
+            height: root.nav_height
+            width: root.nav_height
+
+        BindedLabel:
+            id: actiontext
+            text: root.title
+            font_name: root.font_name if root.font_name else 'DroidSans'
+            font_size: root.font_size
+            halign: 'left'
+            valign: 'middle'
+            shadow_alpha: 0
+            color: root.text_color
+            corner_radius: 0
+
+    FloatLayout:
+        id: floating_panel
+
+        canvas.after:
+            Color:
+                rgba: [0,0,0,root.shadow_alpha]
+            Rectangle:
+                pos: 0, root.height-root.nav_height-dp(1)
+                size: root.width, dp(1)
+            Color:
+                rgba: [0,0,0,root.shadow_alpha]
+            Rectangle:
+                pos: self.pos[0], root.height-root.nav_height-dp(2)
+                size: root.width, dp(2)
+            Color:
+                rgba: [0,0,0,root.shadow_alpha]
+            Rectangle:
+                pos: self.pos[0], root.height-root.nav_height-dp(3)
+                size: root.width, dp(3)
+            Color:
+                rgba: [0,0,0,root.shadow_alpha]
+            Rectangle:
+                pos: self.pos[0], root.height-root.nav_height-dp(4)
+                size: root.width, dp(4)
+
+        BoxLayout:
+            id: content
+        
+

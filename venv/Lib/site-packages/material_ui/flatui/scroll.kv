@@ -1,0 +1,91 @@
+#===============================================================================
+<ReloadSpinner>:
+#===============================================================================
+    size_hint: None, None
+    width: self.diameter
+    height: self.diameter
+    size: root.diameter, root.diameter
+
+    canvas.before:
+
+        PushMatrix:
+        
+    #Image center
+        Translate:
+            x: self.center_x
+            y: self.center_y
+            
+    #Shadow
+        Color:
+            rgba: 0, 0, 0, root.shadow_alpha
+        Ellipse:
+            size: root.diameter*1.1, root.diameter*1.1
+            pos: -root.diameter*1.1/2, -root.diameter*1.1/2
+
+    #White background
+		Color:
+            rgba: 1, 1, 1, 1
+		Ellipse:
+		    pos: -root.diameter/2, -root.diameter/2   
+		    size: root.diameter, root.diameter
+
+    #Rotation
+        Rotate:
+            angle: root.angle
+            axis: 0, 0, 1
+            origin: 0, 0
+
+
+#===============================================================================
+<ImageSpinner>:
+#===============================================================================
+    canvas.after:
+
+    #Content
+        Rectangle:
+		    pos: -root.diameter*1.1/2, -root.diameter*1.1/2   
+		    size: root.diameter*1.1, root.diameter*1.1
+            source: root.spinner_image
+        PopMatrix:
+
+#===============================================================================
+<LollipopSpinner>:
+#===============================================================================
+    canvas.after:
+
+    #Content
+        Color:
+            rgba: root.color[0], root.color[1], root.color[2], .7
+        Line:
+            width: dp(1.5)
+		    circle: 0, 0, root.diameter/4, 0, self.angle2
+
+        Color:
+            rgba: root.color[0], root.color[1], root.color[2], .85
+        Line:
+            width: dp(1.25)
+		    circle: 0, 0, root.diameter/4, 0, self.angle2
+
+        Color:
+            rgba: root.color
+        Line:
+            width: dp(1)
+		    circle: 0, 0, root.diameter/4, 0, self.angle2
+
+        PopMatrix:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
